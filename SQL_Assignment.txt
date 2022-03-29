@@ -1,0 +1,62 @@
+SELECT QUERY WITH JOINS:
+SELECT * FROM movies inner join boxoffice where movies.Id=boxoffice.Movie_Id;
+SELECT * FROM movies inner join boxoffice where movies.Id=boxoffice.Movie_Id and boxoffice.International_sales > boxoffice.Domestic_sales;
+SELECT * FROM movies inner join boxoffice where movies.Id=boxoffice.Movie_Id order by rating desc;
+
+EXCERSISE-7
+SELECT distinct building FROM employees left join buildings on buildings.Building_name = employees.building;
+SELECT * FROM buildings;
+SELECT distinct role,building_name FROM buildings left join employees on buildings.building_name=employees.Building;
+
+EXCERCISE-8
+SELECT name, role FROM employees where building is null;
+SELECT building_name FROM buildings left join employees on employees.building=buildings.building_name where Name is null;
+
+EXCERCISE-9
+SELECT title,(domestic_sales+international_sales)/1000000 as sales FROM movies left join boxoffice on movies.id=boxoffice.movie_id;
+SELECT title,rating*10 as rating FROM movies left join boxoffice on movies.id=boxoffice.movie_id;
+SELECT title as rating FROM movies left join boxoffice on movies.id=boxoffice.movie_id where year%2=0;
+
+EXCERCISE-10
+SELECT max(years_employed) FROM employees;
+SELECT role, avg(years_employed) as averageYearsEmployed FROM employees group by role;
+SELECT building,sum(years_employed) FROM employees group by building;
+
+EXCERCISE-11:
+SELECT count(name) FROM employees where role="Artist";
+SELECT Role, count(name) as CountofEmployees FROM employees group by role;
+SELECT role, sum(Years_employed) as TotalNoOfYearsEmployed FROM employees group by role having role="Engineer";
+
+EXCERCISE-12
+SELECT Director, count(id) as movies FROM movies group by Director;
+SELECT Director, SUM(Domestic_sales+International_sales) as sales FROM movies join boxoffice on movies.id=boxoffice.movie_id group by Director;
+
+
+EXCERCISE-13:
+insert into movies values(15,"Toy Story 4","John Lasesster",2010,80);
+insert into boxoffice values(15,8.7,340000000,270000000);
+
+EXCERCISE-14:
+update movies set director="John Lasseter" where title="A Bug's Life";
+update movies set year=1999 where title="Toy Story 2";
+update movies set title="Toy Story 3",director="Lee Unkrich" where title="Toy Story 8";
+
+EXCERCISE-15
+DELETE FROM movies where year<2005;
+DELETE FROM movies where director="Andrew Stanton";
+
+EXCERCISE-16
+CREATE TABLE Database (
+    id INTEGER PRIMARY KEY,
+    Name TEXT,
+    Version FLOAT, 
+    Download_count INTEGER
+);
+
+EXCERCISE-17
+ALTER TABLE movies ADD Aspect_ratio FLOAT;
+ALTER TABLE movies ADD Language TEXT default "English";
+
+EXCERCISE-18
+DROP TABLE IF EXISTS movies;
+DROP TABLE IF EXISTS boxoffice;
